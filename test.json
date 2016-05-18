@@ -1,0 +1,21 @@
+{
+  "name": "Talk",
+  "operator": {
+    "operatorName": "Kyivstar"
+  },
+  "payroll": 50,
+  "startPrice": 25,
+  "callPrices": {
+    "withinNetwork": 0,
+    "toOtherNetworks": 20,
+    "toLandlineNumbers": 25
+  },
+  "smsPrices": {
+    "smsPrice": 20,
+    "countSMS": 100
+  },
+  "parameters": {
+    "favoriteNumber": 1,
+    "tarificate": "EVERYMINUTE"
+  }
+}

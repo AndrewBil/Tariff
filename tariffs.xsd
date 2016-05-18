@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+        <xs:element name="tariffs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tariff" type="Tariff" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Tariff">
+        <xs:sequence>
+            <xs:element name="name" type="xs:Name"/>
+            <xs:element name="operator" type="Operator"/>
+            <xs:element name="payroll" type="xs:integer"/>
+            <xs:element name="startPrice" type="xs:integer"/>
+            <xs:element name="callPrices" type="CallPrices"/>
+            <xs:element name="smsPrices" type="SMSPrices"/>
+            <xs:element name="parameters" type="Parameters"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Name">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Operator">
+        <xs:sequence>
+            <xs:element name="operatorName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CallPrices">
+        <xs:sequence>
+            <xs:element name="toLandlineNumbers" type="xs:integer"/>
+            <xs:element name="toOtherNetworks" type="xs:integer"/>
+            <xs:element name="withinNetwork" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SMSPrices">
+        <xs:sequence>
+            <xs:element name="countSMS" type="xs:integer"/>
+            <xs:element name="smsPrice" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Parameters">
+        <xs:sequence>
+            <xs:element name="favoriteNumber" type="xs:integer"/>
+            <xs:element name="tarificate" type="Tarification"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Tarification">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EVERY15SECONDS"/>
+            <xs:enumeration value="EVERYMINUTE"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

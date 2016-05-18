@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tariffs>
+    <tariff>
+        <name>Talk</name>
+        <operator>
+            <operatorName>Kyivstar</operatorName>
+        </operator>
+        <payroll>50</payroll>
+        <startPrice>25</startPrice>
+        <callPrices>
+            <toLandlineNumbers>25</toLandlineNumbers>
+            <toOtherNetworks>20</toOtherNetworks>
+            <withinNetwork>0</withinNetwork>
+        </callPrices>
+        <smsPrices>
+            <countSMS>100</countSMS>
+            <smsPrice>20</smsPrice>
+        </smsPrices>
+        <parameters>
+            <favoriteNumber>1</favoriteNumber>
+            <tarificate>EVERYMINUTE</tarificate>
+        </parameters>
+    </tariff>
+</tariffs>

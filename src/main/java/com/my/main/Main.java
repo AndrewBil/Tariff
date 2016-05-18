@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.my.operator.Operator;
 import com.my.parsers.DOMParser;
 import com.my.parsers.SAXParser;
+import com.my.parsers.STAXParser;
 import com.my.tariff.Tariff;
 import com.my.tariff.Tariffs;
 import org.apache.commons.io.FileUtils;
@@ -28,8 +29,8 @@ import java.util.List;
  * Created by andrew on 10.05.2016.
  */
 public class Main {
-    static final String fileXML = "tariff.xml";
-    static final String fileXSD = "tariff.xsd";
+    static final String fileXML = "tariffs.xml";
+    static final String fileXSD = "tariffs.xsd";
     static Tariffs tariffs = new Tariffs();
 
     private static void marshalingExample() throws JAXBException {
@@ -42,54 +43,66 @@ public class Main {
         jaxbMarshaller.marshal(tariffs, System.out);
 
         //Marshal the employees list in file
-        jaxbMarshaller.marshal(tariffs, new File("tariffs.xml"));
+        jaxbMarshaller.marshal(tariffs, new File(fileXML));
     }
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         tariffs.setTariffs(new ArrayList<Tariff>());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Tariff tariff = new Tariff("Talk", new Operator("Kyivstar"), 25,50,new Tariff.CallPrices(0,20,25),new Tariff.SMSPrices(20,100),new Tariff.Parameters(1,Tariff.Parameters.Tarification.EVERYMINUTE));
+        Tariff tariff = new Tariff("Talk", new Operator("Kyivstar"), 25, 50, new Tariff.CallPrices(0, 20, 25), new Tariff.SMSPrices(20, 100), new Tariff.Parameters(1, Tariff.Parameters.Tarification.EVERYMINUTE));
 
         tariffs.add(tariff);
-            String jsonInString = gson.toJson(tariff);
+        String jsonInString = gson.toJson(tariff);
         try {
             FileUtils.writeStringToFile(new File("test.json"), jsonInString);
         } catch (IOException e) {
             e.printStackTrace();
         }
-              try {
+        try {
             marshalingExample();
-            System.out.println("tariffs.xml validates against tariffs.xsd? "+validateXMLSchema(fileXSD, fileXSD));
+            System.out.println("tariffs.xml validates against tariffs.xsd: " + validateXMLSchema(fileXSD, fileXML));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
         DOMParser parser = new DOMParser();
         List<Tariff> tariffs = parser.parse(fileXML);
+        System.out.println();
+        System.out.println(parser.getClass().getSimpleName());
         for (Tariff tar : tariffs) {
-                   System.out.println(tar.toString());
+            System.out.println(tar.toString());
         }
 
-        SAXParser parser1=new SAXParser();
-        List<Tariff> tariffs1=parser1.parse(fileXML);
-         for (Tariff tar:tariffs1){
-                       System.out.println(tar.toString());
+        SAXParser parser1 = new SAXParser();
+        List<Tariff> tariffs1 = parser1.parse(fileXML);
+        System.out.println();
+        System.out.println(parser1.getClass().getSimpleName());
+        for (Tariff tar : tariffs1) {
+            System.out.println(tar.toString());
+        }
+
+        STAXParser parser2 = new STAXParser();
+        System.out.println();
+        System.out.println(parser2.getClass().getSimpleName());
+        List<Tariff> tariffs2 = parser2.parse(fileXML);
+        for (Tariff tar : tariffs1) {
+            System.out.println(tar.toString());
         }
     }
 
-    public static boolean validateXMLSchema(String xsdPath, String xmlPath){
+    public static boolean validateXMLSchema(String fileXSD, String fileXML) {
 
         try {
             SchemaFactory factory =
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new File(xsdPath));
+            Schema schema = factory.newSchema(new File(fileXSD));
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(xmlPath)));
+            validator.validate(new StreamSource(new File(fileXML)));
         } catch (IOException | SAXException e) {
-            System.out.println("Exception: "+e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
             return false;
         }
         return true;
     }
-    }
+}
 

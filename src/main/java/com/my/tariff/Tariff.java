@@ -28,7 +28,7 @@ public class Tariff {
     public String toString() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonInString = gson.toJson(this);
-        return ("Tariff: " + jsonInString);
+        return ("tariff: " + jsonInString);
     }
     public void setSmsPrices(SMSPrices smsPrices) {
         this.smsPrices = smsPrices;

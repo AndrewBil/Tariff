@@ -22,7 +22,9 @@ public class SAXParser {
     Tariff.CallPrices callPrices;
     Tariff.SMSPrices smsPrices;
     Tariff.Parameters parameters;
+    Operator operator;
     private Tariff currentTariff;
+
     private int current;
 
     private class SAXHandler extends DefaultHandler {
@@ -40,7 +42,6 @@ public class SAXParser {
             switch (qName) {
                 case "tariffs":
                     current = 1;
-                    System.out.println("here4");
                     break;
                 case "tariff":
                     current = 2;
@@ -49,8 +50,12 @@ public class SAXParser {
                 case "name":
                     current = 3;
                     break;
-                case "operatorName":
+                case "operator":
+                    operator = new Operator();
                     current = 4;
+                    break;
+                case "operatorName":
+                    current = 41;
                     break;
                 case "payroll":
                     current = 5;
@@ -84,7 +89,6 @@ public class SAXParser {
                 case "parameters":
                     current = 14;
                     parameters = new Tariff.Parameters();
-
                     break;
                 case "favoriteNumber":
                     current = 15;
@@ -105,8 +109,7 @@ public class SAXParser {
                 case 3:
                     currentTariff.setName(text);
                     break;
-                case 4:
-                    Operator operator = new Operator();
+                case 41:
                     operator.setOperatorName(text);
                     currentTariff.setOperator(operator);
                     break;
@@ -124,14 +127,13 @@ public class SAXParser {
                     break;
                 case 10:
                     callPrices.setWithinNetwork(Integer.parseInt(text));
-
                     break;
                 case 12:
                     smsPrices.setCountSMS(Integer.parseInt(text));
 
                     break;
                 case 13:
-                   smsPrices.setSmsPrice(Integer.parseInt(text));
+                    smsPrices.setSmsPrice(Integer.parseInt(text));
 
                     break;
                 case 15:
@@ -146,13 +148,15 @@ public class SAXParser {
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
-                      current = 0;
+            current = 0;
         }
 
         @Override
         public void endDocument() throws SAXException {
             super.endDocument();
+            currentTariff.setOperator(operator);
             currentTariff.setCallPrices(callPrices);
+            currentTariff.setSmsPrices(smsPrices);
             currentTariff.setParameters(parameters);
             tariffs.add(currentTariff);
         }
@@ -169,11 +173,11 @@ public class SAXParser {
             parser.parse(new File(fileXML), handler);
 
         } catch (ParserConfigurationException ex) {
-           ex.getMessage();
+            ex.getMessage();
         } catch (SAXException ex) {
-          ex.getMessage();
+            ex.getMessage();
         } catch (IOException ex) {
-           ex.getMessage();
+            ex.getMessage();
         }
 
         return tariffs;

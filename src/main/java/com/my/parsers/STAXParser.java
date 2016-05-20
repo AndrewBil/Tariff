@@ -110,18 +110,18 @@ public class STAXParser {
                             break;
                     }
                 }
-                }
+            }
             currentTariff.setOperator(operator);
             currentTariff.setCallPrices(callPrices);
             currentTariff.setSmsPrices(smsPrices);
             currentTariff.setParameters(parameters);
             tariffs.add(currentTariff);
 
-            }catch(XMLStreamException ex){
-                System.out.println("There is problem with xml" + ex.getMessage());
-            }
-
-            return tariffs;
+        } catch (XMLStreamException ex) {
+            System.out.println("There is problem with xml" + ex.getMessage());
         }
 
+        return tariffs;
     }
+
+}

@@ -49,10 +49,15 @@ public class Main {
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         tariffs.setTariffs(new ArrayList<Tariff>());
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Tariff tariff = new Tariff("Talk", new Operator("Kyivstar"), 25, 50, new Tariff.CallPrices(0, 20, 25), new Tariff.SMSPrices(20, 100), new Tariff.Parameters(1, Tariff.Parameters.Tarification.EVERYMINUTE));
+        Operator kyivstar = new Operator("Kyivstar");
+        Operator lifecell = new Operator("Lifecell");
+        Operator vodafone = new Operator("Vodafone");
+        // Tariff tariff = new Tariff("Talk", kyivstar, 25, 50, new Tariff.CallPrices(0, 20, 25), new Tariff.SMSPrices(20, 100), new Tariff.Parameters(1, Tariff.Parameters.Tarification.EVERYMINUTE));
 
-        tariffs.add(tariff);
-        String jsonInString = gson.toJson(tariff);
+        tariffs.add(new Tariff("Talk", kyivstar, 25, 50, new Tariff.CallPrices(0, 20, 25), new Tariff.SMSPrices(20, 100), new Tariff.Parameters(1, Tariff.Parameters.Tarification.EVERYMINUTE)));
+        tariffs.add(new Tariff("Easy", lifecell, 15, 20, new Tariff.CallPrices(0, 20, 25), new Tariff.SMSPrices(2, 10), new Tariff.Parameters(0, Tariff.Parameters.Tarification.EVERYMINUTE)));
+        tariffs.add(new Tariff("XL", vodafone, 250, 250, new Tariff.CallPrices(0, 50, 25), new Tariff.SMSPrices(20, 0), new Tariff.Parameters(2, Tariff.Parameters.Tarification.EVERYMINUTE)));
+        String jsonInString = gson.toJson(tariffs);
         try {
             FileUtils.writeStringToFile(new File("test.json"), jsonInString);
         } catch (IOException e) {
@@ -69,6 +74,7 @@ public class Main {
         List<Tariff> tariffs = parser.parse(fileXML);
         System.out.println();
         System.out.println(parser.getClass().getSimpleName());
+        System.out.println("--------------------------");
         for (Tariff tar : tariffs) {
             System.out.println(tar.toString());
         }
@@ -77,6 +83,7 @@ public class Main {
         List<Tariff> tariffs1 = parser1.parse(fileXML);
         System.out.println();
         System.out.println(parser1.getClass().getSimpleName());
+        System.out.println("--------------------------");
         for (Tariff tar : tariffs1) {
             System.out.println(tar.toString());
         }
@@ -84,6 +91,7 @@ public class Main {
         STAXParser parser2 = new STAXParser();
         System.out.println();
         System.out.println(parser2.getClass().getSimpleName());
+        System.out.println("--------------------------");
         List<Tariff> tariffs2 = parser2.parse(fileXML);
         for (Tariff tar : tariffs1) {
             System.out.println(tar.toString());

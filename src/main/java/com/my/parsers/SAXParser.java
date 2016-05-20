@@ -97,7 +97,6 @@ public class SAXParser {
                     current = 16;
                     break;
             }
-
         }
 
         @Override
@@ -148,17 +147,21 @@ public class SAXParser {
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
+            if (qName.equalsIgnoreCase("tariff")) {
+                currentTariff.setOperator(operator);
+                currentTariff.setCallPrices(callPrices);
+                currentTariff.setSmsPrices(smsPrices);
+                currentTariff.setParameters(parameters);
+                tariffs.add(currentTariff);
+            }
+
             current = 0;
         }
 
         @Override
         public void endDocument() throws SAXException {
             super.endDocument();
-            currentTariff.setOperator(operator);
-            currentTariff.setCallPrices(callPrices);
-            currentTariff.setSmsPrices(smsPrices);
-            currentTariff.setParameters(parameters);
-            tariffs.add(currentTariff);
+
         }
     }
 

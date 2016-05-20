@@ -1,21 +1,67 @@
 {
-  "name": "Talk",
-  "operator": {
-    "operatorName": "Kyivstar"
-  },
-  "payroll": 50,
-  "startPrice": 25,
-  "callPrices": {
-    "withinNetwork": 0,
-    "toOtherNetworks": 20,
-    "toLandlineNumbers": 25
-  },
-  "smsPrices": {
-    "smsPrice": 20,
-    "countSMS": 100
-  },
-  "parameters": {
-    "favoriteNumber": 1,
-    "tarificate": "EVERYMINUTE"
-  }
+  "tariffs": [
+    {
+      "name": "Talk",
+      "operator": {
+        "operatorName": "Kyivstar"
+      },
+      "payroll": 50,
+      "startPrice": 25,
+      "callPrices": {
+        "withinNetwork": 0,
+        "toOtherNetworks": 20,
+        "toLandlineNumbers": 25
+      },
+      "smsPrices": {
+        "smsPrice": 20,
+        "countSMS": 100
+      },
+      "parameters": {
+        "favoriteNumber": 1,
+        "tarificate": "EVERYMINUTE"
+      }
+    },
+    {
+      "name": "Easy",
+      "operator": {
+        "operatorName": "Lifecell"
+      },
+      "payroll": 20,
+      "startPrice": 15,
+      "callPrices": {
+        "withinNetwork": 0,
+        "toOtherNetworks": 20,
+        "toLandlineNumbers": 25
+      },
+      "smsPrices": {
+        "smsPrice": 2,
+        "countSMS": 10
+      },
+      "parameters": {
+        "favoriteNumber": 0,
+        "tarificate": "EVERYMINUTE"
+      }
+    },
+    {
+      "name": "XL",
+      "operator": {
+        "operatorName": "Vodafone"
+      },
+      "payroll": 250,
+      "startPrice": 250,
+      "callPrices": {
+        "withinNetwork": 0,
+        "toOtherNetworks": 50,
+        "toLandlineNumbers": 25
+      },
+      "smsPrices": {
+        "smsPrice": 20,
+        "countSMS": 0
+      },
+      "parameters": {
+        "favoriteNumber": 2,
+        "tarificate": "EVERYMINUTE"
+      }
+    }
+  ]
 }

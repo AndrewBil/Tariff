@@ -21,4 +21,46 @@
             <tarificate>EVERYMINUTE</tarificate>
         </parameters>
     </tariff>
+    <tariff>
+        <name>Easy</name>
+        <operator>
+            <operatorName>Lifecell</operatorName>
+        </operator>
+        <payroll>20</payroll>
+        <startPrice>15</startPrice>
+        <callPrices>
+            <toLandlineNumbers>25</toLandlineNumbers>
+            <toOtherNetworks>20</toOtherNetworks>
+            <withinNetwork>0</withinNetwork>
+        </callPrices>
+        <smsPrices>
+            <countSMS>10</countSMS>
+            <smsPrice>2</smsPrice>
+        </smsPrices>
+        <parameters>
+            <favoriteNumber>0</favoriteNumber>
+            <tarificate>EVERYMINUTE</tarificate>
+        </parameters>
+    </tariff>
+    <tariff>
+        <name>XL</name>
+        <operator>
+            <operatorName>Vodafone</operatorName>
+        </operator>
+        <payroll>250</payroll>
+        <startPrice>250</startPrice>
+        <callPrices>
+            <toLandlineNumbers>25</toLandlineNumbers>
+            <toOtherNetworks>50</toOtherNetworks>
+            <withinNetwork>0</withinNetwork>
+        </callPrices>
+        <smsPrices>
+            <countSMS>0</countSMS>
+            <smsPrice>20</smsPrice>
+        </smsPrices>
+        <parameters>
+            <favoriteNumber>2</favoriteNumber>
+            <tarificate>EVERYMINUTE</tarificate>
+        </parameters>
+    </tariff>
 </tariffs>
